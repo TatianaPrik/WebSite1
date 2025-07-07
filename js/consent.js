@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     overlay.innerHTML = `
       <div id="consent-modal">
         <h2>Согласие на использование cookie и обработку данных</h2>
-        <p>Мы используем базовые cookie-файлы и обрабатываем ваши персональные данные в соответствии с <a href="/privacy-policy.html" target="_blank">Политикой обработки персональных данных</a> и <a href="/cookie-policy.html" target="_blank">Политикой cookie</a>.</p>
+        <p>Мы используем базовые cookie-файлы и обрабатываем ваши персональные данные в соответствии с <a href="privacy-policy.html" target="_blank">Политикой обработки персональных данных</a> и <a href="cookie-policy.html" target="_blank">Политикой cookie</a>.</p>
         <button id="consent-accept">Принять</button>
       </div>`;
     document.body.appendChild(overlay);
@@ -15,3 +15,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
