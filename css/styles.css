@@ -639,9 +639,9 @@ h3 {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: var(--shadow-hover);
-    max-width: 800px;
+    max-width: 300px;
     margin: 0 auto;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 9 / 16;
 }
 
 .video-container video {
@@ -1290,9 +1290,60 @@ html {
     }
     
     .standard-overlay h3 {
-        font-size: 1.2rem;
+       font-size: 1.2rem;
     }
+
+   .main-artwork {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .artwork-info {
+    top: 5px;
+    padding: 0.5rem;
+   }
+
+   .artwork-details {
+    margin-bottom: 0.5rem;
+   }
+
+   .artwork-info h1 {
+    margin-bottom: 0.5rem;
+    
+   }
+
+   .artwork-details p {
+    margin-bottom: 0.5rem;
+    font-size: 1.0rem;
+    line-height: 1.0;
+    }
+   .artwork-description p {
+    margin-top: 0.5rem;
+    font-size: 1.0rem;
+    line-height: 1.1;
+    }
+
+   .fragments-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    }
+   .video-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    }
+
+   .video-container {
+        max-width: 80%;
+        
+    }
+
+    
+
+
 }
+
+
+
 
 /* High DPI displays optimization */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
