@@ -39,7 +39,7 @@ h1 {
 h2 {
     font-family: 'Playfair Display', sans-serif;
     font-weight: 700;
-    color:  #D4AF37;
+    color:  #bf9011; /*#D4AF37;*/
 }
 
 
@@ -151,11 +151,11 @@ h3 {
     padding-top: 90px;
     text-align: center;
     position: relative;
-    background-image: url("hero-background.jpg");
+    background-image: url("/hero-background.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: notset;
 }
 
 /* Hero overlay for text readability */
@@ -1186,8 +1186,8 @@ html {
 
 @media screen and (max-width: 480px) {
     .hero {
-        min-height: 20vh;
-        padding-top: 0.5px;
+        min-height: 18vh;
+        padding-top: 90px;
     }
     
     /* Stronger overlay on very small screens */
