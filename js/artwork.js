@@ -46,22 +46,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         function updateImageTransform() {
-            // Constrain translation when zoomed
+            // Apply transform first
+            mainImage.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
+            
+            // Constrain translation when zoomed - FIXED LOGIC
             if (currentZoom > 1) {
+                // Get the natural dimensions of the image
+                const imageNaturalWidth = mainImage.naturalWidth;
+                const imageNaturalHeight = mainImage.naturalHeight;
                 const containerRect = imageContainer.getBoundingClientRect();
-                const imageRect = mainImage.getBoundingClientRect();
                 
-                const maxTranslateX = Math.max(0, (imageRect.width * currentZoom - containerRect.width) / 2);
-                const maxTranslateY = Math.max(0, (imageRect.height * currentZoom - containerRect.height) / 2);
+                // Calculate the displayed size after scaling
+                const displayedWidth = imageNaturalWidth * currentZoom;
+                const displayedHeight = imageNaturalHeight * currentZoom;
                 
+                // Calculate maximum translation limits
+                const maxTranslateX = Math.max(0, (displayedWidth - containerRect.width) / 2 / currentZoom);
+                const maxTranslateY = Math.max(0, (displayedHeight - containerRect.height) / 2 / currentZoom);
+                
+                // Constrain translation within bounds
                 translateX = Math.max(-maxTranslateX, Math.min(maxTranslateX, translateX));
                 translateY = Math.max(-maxTranslateY, Math.min(maxTranslateY, translateY));
+                
+                // Apply constrained transform
+                mainImage.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
             } else {
+                // Reset translation when zoom is 1 or less
                 translateX = 0;
                 translateY = 0;
+                mainImage.style.transform = `scale(${currentZoom}) translate(0px, 0px)`;
             }
-            
-            mainImage.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
             
             // Update button states
             zoomInBtn.disabled = currentZoom >= maxZoom;
@@ -73,6 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Enable/disable panning based on zoom
             imageContainer.style.cursor = currentZoom > 1 ? 'grab' : 'default';
+            
+            // Update last translate values
+            lastTranslateX = translateX;
+            lastTranslateY = translateY;
         }
 
         // DESKTOP: Mouse drag functionality
@@ -278,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================
-    // VIDEO FUNCTIONALITY - ADDED SECTION
+    // VIDEO FUNCTIONALITY
     // ========================================
     
     const videoContainer = document.querySelector('.video-container');
@@ -381,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
         // Only if not focused on input elements
         if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-            const prevLink = document.querySelector('.nav-artwork[href*="artwork-6"]');
+            const prevLink = document.querySelector('.nav-artwork[href*="artwork-20"]');
             const nextLink = document.querySelector('.nav-artwork[href*="artwork-2"]');
             
             if (e.key === 'ArrowLeft' && prevLink) {
