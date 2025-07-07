@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================
-    // VIDEO FUNCTIONALITY - ADDED SECTION
+    // VIDEO FUNCTIONALITY - NEW SECTION
     // ========================================
     
     const videoContainer = document.querySelector('.video-container');
@@ -289,14 +289,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Video play/pause functionality with play icon management
         video.addEventListener('play', () => {
             videoContainer.classList.add('playing');
+            console.log('Video started playing');
         });
         
         video.addEventListener('pause', () => {
             videoContainer.classList.remove('playing');
+            console.log('Video paused');
         });
         
         video.addEventListener('ended', () => {
             videoContainer.classList.remove('playing');
+            console.log('Video ended');
         });
         
         // Video loading events
@@ -304,8 +307,28 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Video metadata loaded successfully');
         });
         
+        video.addEventListener('loadeddata', () => {
+            console.log('Video data loaded successfully');
+        });
+        
         video.addEventListener('error', (e) => {
             console.error('Video failed to load:', e);
+            // Show error message to user
+            const errorMsg = document.createElement('div');
+            errorMsg.style.cssText = `
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: white;
+                background: rgba(255, 0, 0, 0.8);
+                padding: 1rem;
+                border-radius: 5px;
+                text-align: center;
+                z-index: 10;
+            `;
+            errorMsg.textContent = 'Ошибка загрузки видео. Проверьте путь к файлу.';
+            videoContainer.appendChild(errorMsg);
         });
         
         // Fullscreen functionality
@@ -365,8 +388,57 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // Click on video container to play/pause
+        // Keyboard controls for video
+        document.addEventListener('keydown', (e) => {
+            // Only if video is focused or fullscreen
+            if (document.fullscreenElement === videoContainer || e.target === video) {
+                switch(e.key) {
+                    case ' ':
+                    case 'k':
+                        e.preventDefault();
+                        if (video.paused) {
+                            video.play();
+                        } else {
+                            video.pause();
+                        }
+                        break;
+                    case 'f':
+                        e.preventDefault();
+                        toggleFullscreen();
+                        break;
+                    case 'Escape':
+                        if (document.fullscreenElement) {
+                            e.preventDefault();
+                            toggleFullscreen();
+                        }
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        video.currentTime = Math.max(0, video.currentTime - 10);
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        video.currentTime = Math.min(video.duration, video.currentTime + 10);
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        video.volume = Math.min(1, video.volume + 0.1);
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        video.volume = Math.max(0, video.volume - 0.1);
+                        break;
+                    case 'm':
+                        e.preventDefault();
+                        video.muted = !video.muted;
+                        break;
+                }
+            }
+        });
+        
+        // Click on video container to play/pause (but not on controls)
         videoContainer.addEventListener('click', (e) => {
+            // Don't trigger if clicking on video controls or fullscreen button
             if (e.target === video || e.target === videoContainer) {
                 if (video.paused) {
                     video.play();
@@ -375,12 +447,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
+        
+        // Progress indicator on video hover (optional enhancement)
+        let progressIndicator = null;
+        
+        video.addEventListener('timeupdate', () => {
+            if (progressIndicator && video.duration) {
+                const progress = (video.currentTime / video.duration) * 100;
+                progressIndicator.style.width = progress + '%';
+            }
+        });
+        
+        // Create progress indicator on hover
+        videoContainer.addEventListener('mouseenter', () => {
+            if (!progressIndicator && video.duration) {
+                progressIndicator = document.createElement('div');
+                progressIndicator.style.cssText = `
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    height: 3px;
+                    background: var(--accent-color, #D4AF37);
+                    transition: width 0.1s ease;
+                    z-index: 5;
+                    pointer-events: none;
+                `;
+                videoContainer.appendChild(progressIndicator);
+                
+                // Set initial progress
+                const progress = (video.currentTime / video.duration) * 100;
+                progressIndicator.style.width = progress + '%';
+            }
+        });
+        
+        videoContainer.addEventListener('mouseleave', () => {
+            if (progressIndicator) {
+                videoContainer.removeChild(progressIndicator);
+                progressIndicator = null;
+            }
+        });
     }
 
     // Keyboard navigation for artwork pages
     document.addEventListener('keydown', (e) => {
-        // Only if not focused on input elements
-        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        // Only if not focused on input elements and not in fullscreen video
+        if (e.target.tagName !== 'INPUT' && 
+            e.target.tagName !== 'TEXTAREA' && 
+            !document.fullscreenElement) {
+            
             const prevLink = document.querySelector('.nav-artwork[href*="artwork-6"]');
             const nextLink = document.querySelector('.nav-artwork[href*="artwork-2"]');
             

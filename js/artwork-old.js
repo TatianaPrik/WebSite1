@@ -277,103 +277,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ========================================
-    // VIDEO FUNCTIONALITY - ADDED SECTION
-    // ========================================
-    
-    const videoContainer = document.querySelector('.video-container');
+    // Video controls enhancement
     const video = document.querySelector('.video-container video');
-    const fullscreenBtn = document.querySelector('.fullscreen-btn');
-    
-    if (video && videoContainer) {
-        // Video play/pause functionality with play icon management
-        video.addEventListener('play', () => {
-            videoContainer.classList.add('playing');
-        });
-        
-        video.addEventListener('pause', () => {
-            videoContainer.classList.remove('playing');
-        });
-        
-        video.addEventListener('ended', () => {
-            videoContainer.classList.remove('playing');
-        });
-        
-        // Video loading events
+    if (video) {
         video.addEventListener('loadedmetadata', () => {
-            console.log('Video metadata loaded successfully');
+            console.log('Video loaded successfully');
         });
         
-        video.addEventListener('error', (e) => {
-            console.error('Video failed to load:', e);
-        });
-        
-        // Fullscreen functionality
-        if (fullscreenBtn) {
-            fullscreenBtn.addEventListener('click', () => {
-                toggleFullscreen();
-            });
-        }
-        
-        // Double-click on video for fullscreen
-        video.addEventListener('dblclick', () => {
-            toggleFullscreen();
-        });
-        
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                // Enter fullscreen
-                if (videoContainer.requestFullscreen) {
-                    videoContainer.requestFullscreen();
-                } else if (videoContainer.webkitRequestFullscreen) {
-                    videoContainer.webkitRequestFullscreen();
-                } else if (videoContainer.msRequestFullscreen) {
-                    videoContainer.msRequestFullscreen();
-                }
-            } else {
-                // Exit fullscreen
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-            }
-        }
-        
-        // Fullscreen change events
-        document.addEventListener('fullscreenchange', handleFullscreenChange);
-        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-        document.addEventListener('msfullscreenchange', handleFullscreenChange);
-        
-        function handleFullscreenChange() {
-            if (document.fullscreenElement === videoContainer || 
-                document.webkitFullscreenElement === videoContainer ||
-                document.msFullscreenElement === videoContainer) {
-                // Entered fullscreen
-                videoContainer.classList.add('fullscreen-active');
-                if (fullscreenBtn) {
-                    fullscreenBtn.textContent = 'Exit Fullscreen';
-                }
-            } else {
-                // Exited fullscreen
-                videoContainer.classList.remove('fullscreen-active');
-                if (fullscreenBtn) {
-                    fullscreenBtn.textContent = 'Full Screen';
-                }
-            }
-        }
-        
-        // Click on video container to play/pause
-        videoContainer.addEventListener('click', (e) => {
-            if (e.target === video || e.target === videoContainer) {
-                if (video.paused) {
-                    video.play();
-                } else {
-                    video.pause();
-                }
-            }
+        video.addEventListener('error', () => {
+            console.log('Video failed to load');
         });
     }
 
@@ -381,8 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
         // Only if not focused on input elements
         if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-            const prevLink = document.querySelector('.nav-artwork[href*="artwork-6"]');
-            const nextLink = document.querySelector('.nav-artwork[href*="artwork-2"]');
+            const prevLink = document.querySelector('.nav-artwork.prev');
+            const nextLink = document.querySelector('.nav-artwork.next');
             
             if (e.key === 'ArrowLeft' && prevLink) {
                 window.location.href = prevLink.href;

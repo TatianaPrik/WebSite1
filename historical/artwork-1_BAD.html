@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artwork 1 - Tatiana Prik</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/consent.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>Tatiana Prik</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Gallery</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Artwork Page -->
+    <main class="artwork-page">
+        <div class="container">
+            <div class="artwork-content">
+                <!-- Back Navigation -->
+                <div class="back-nav">
+                    <a href="index.html" class="back-link">← Back to Gallery</a>
+                </div>
+
+                <!-- Main Artwork Display -->
+                <div class="main-artwork">
+                    <div class="artwork-viewer">
+                        <div class="main-image-container" id="main-image-container">
+                            <img src="images/artwork-1.jpg" alt="Artwork 1" id="main-artwork-image">
+                            <div class="zoom-controls">
+                                <button class="zoom-btn" id="zoom-in" title="Zoom In">+</button>
+                                <button class="zoom-btn" id="zoom-out" title="Zoom Out">−</button>
+                                <button class="zoom-btn" id="zoom-reset" title="Reset Zoom">⌂</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="artwork-info">
+                        <h1>Ethereal Convergence</h1>
+                        <div class="artwork-details">
+                            <p><strong>Medium:</strong> Oil on Canvas</p>
+                            <p><strong>Dimensions:</strong> 36" × 48"</p>
+                            <p><strong>Year:</strong> 2024</p>
+                            <p><strong>Price:</strong> $3,200</p>
+                        </div>
+                        <div class="artwork-description">
+                            <p>This piece explores the intersection of consciousness and the digital realm, where organic forms merge with geometric precision. The flowing blues and ethereal whites represent the fluidity of thought, while the structured elements symbolize our increasingly digital existence.</p>
+                            <p>Created during a period of deep introspection about humanity's relationship with technology, this work invites viewers to contemplate the boundaries between the natural and artificial, the conscious and the programmed.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fragments Section -->
+                <div class="fragments-section">
+                    <h3>Detail Views</h3>
+                    <div class="fragments-grid">
+                        <div class="fragment-item">
+                            <img src="images/fragments/artwork-1-fragment-1.jpg" alt="Detail 1">
+                            <div class="fragment-overlay">Upper left detail showing texture interplay</div>
+                        </div>
+                        <div class="fragment-item">
+                            <img src="images/fragments/artwork-1-fragment-2.jpg" alt="Detail 2">
+                            <div class="fragment-overlay">Central convergence point</div>
+                        </div>
+                        <div class="fragment-item">
+                            <img src="images/fragments/artwork-1-fragment-3.jpg" alt="Detail 3">
+                            <div class="fragment-overlay">Color transition study</div>
+                        </div>
+                        <div class="fragment-item">
+                            <img src="images/fragments/artwork-1-fragment-4.jpg" alt="Detail 4">
+                            <div class="fragment-overlay">Geometric precision detail</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Section -->
+                <div class="video-section">
+                    <h3>Creation Process</h3>
+                    <div class="video-container">
+                        <video controls poster="images/thumbnails/artwork-1-video-poster.jpg">
+                            <source src="videos/artwork-1-process.mp4" type="video/mp4">
+                            <source src="videos/artwork-1-process.webm" type="video/webm">
+                            Your browser does not support the video tag.
+                        </video>
+                        <button class="fullscreen-btn">Full Screen</button>
+                    </div>
+                </div>
+
+                <!-- Navigation to other artworks -->
+                <div class="artwork-navigation">
+                    <a href="artwork-6.html" class="nav-artwork">← Previous</a>
+                    <a href="artwork-2.html" class="nav-artwork">Next →</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>Tatiana Prik</h3>
+                <p>Contemporary artist exploring the intersection of consciousness, technology, and human experience through abstract expressionism and digital media.</p>
+                <div class="social-links">
+                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="Facebook">📘</a>
+                    <a href="#" title="Twitter">🐦</a>
+                    <a href="#" title="LinkedIn">💼</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Gallery</h4>
+                <ul>
+                    <li><a href="index.html">All Artworks</a></li>
+                    <li><a href="#recent">Recent Works</a></li>
+                    <li><a href="#collections">Collections</a></li>
+                    <li><a href="#exhibitions">Exhibitions</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="about.html">Artist Bio</a></li>
+                    <li><a href="about.html#manifesto">Artistic Vision</a></li>
+                    <li><a href="#process">Creative Process</a></li>
+                    <li><a href="#press">Press & Media</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="contact.html">Contact Info</a></li>
+                    <li><a href="#commissions">Commissions</a></li>
+                    <li><a href="#newsletter">Newsletter</a></li>
+                    <li><a href="#studio">Studio Visits</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Tatiana Prik. All rights reserved. | Website designed with passion for art and technology.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/artwork.js"></script>
+</body>
+</html>
+
