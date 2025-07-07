@@ -66,62 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Mobile overlay behavior - show on scroll, hide after 2 seconds
-    let overlayTimeout;
-    let isScrolling = false;
-    
-    function isMobileScreen() {
-        return window.innerWidth <= 768;
-    }
-    
-    function showMobileOverlays() {
-        if (!isMobileScreen()) return;
-        
-        const overlays = document.querySelectorAll('.artwork-overlay, .standard-overlay');
-        overlays.forEach(overlay => {
-            overlay.classList.add('mobile-visible');
-        });
-        
-        // Clear existing timeout
-        if (overlayTimeout) {
-            clearTimeout(overlayTimeout);
-        }
-        
-        // Hide overlays after 2 seconds of no scrolling
-        overlayTimeout = setTimeout(() => {
-            overlays.forEach(overlay => {
-                overlay.classList.remove('mobile-visible');
-            });
-            isScrolling = false;
-        }, 2000);
-    }
-    
-    function hideMobileOverlays() {
-        if (!isMobileScreen()) return;
-        
-        const overlays = document.querySelectorAll('.artwork-overlay, .standard-overlay');
-        overlays.forEach(overlay => {
-            overlay.classList.remove('mobile-visible');
-        });
-    }
-    
-    // Listen for scroll events
-    window.addEventListener('scroll', () => {
-        if (isMobileScreen()) {
-            if (!isScrolling) {
-                isScrolling = true;
-            }
-            showMobileOverlays();
-        }
-    });
-    
-    // Hide overlays when screen size changes to desktop
-    window.addEventListener('resize', () => {
-        if (!isMobileScreen()) {
-            hideMobileOverlays();
-        }
-    });
-
     // Lazy loading for images in gallery
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {

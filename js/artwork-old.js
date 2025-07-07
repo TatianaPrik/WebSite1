@@ -4,160 +4,92 @@ document.addEventListener('DOMContentLoaded', () => {
     const zoomInBtn = document.getElementById('zoom-in');
     const zoomOutBtn = document.getElementById('zoom-out');
     const zoomResetBtn = document.getElementById('zoom-reset');
-    const imageContainer = document.querySelector('.main-image-container');
     
     let currentZoom = 1;
     const zoomStep = 0.2;
     const maxZoom = 3;
     const minZoom = 0.5;
-    
-    // Pan variables
-    let isPanning = false;
-    let startX = 0;
-    let startY = 0;
-    let translateX = 0;
-    let translateY = 0;
-    let lastTranslateX = 0;
-    let lastTranslateY = 0;
 
-    // Zoom functionality - ONLY buttons for desktop
+    // Zoom functionality
     if (mainImage && zoomInBtn && zoomOutBtn && zoomResetBtn) {
         zoomInBtn.addEventListener('click', () => {
             if (currentZoom < maxZoom) {
                 currentZoom += zoomStep;
-                updateImageTransform();
+                updateImageZoom();
             }
         });
 
         zoomOutBtn.addEventListener('click', () => {
             if (currentZoom > minZoom) {
                 currentZoom -= zoomStep;
-                updateImageTransform();
+                updateImageZoom();
             }
         });
 
         zoomResetBtn.addEventListener('click', () => {
             currentZoom = 1;
-            translateX = 0;
-            translateY = 0;
-            lastTranslateX = 0;
-            lastTranslateY = 0;
-            updateImageTransform();
+            updateImageZoom();
         });
 
-        function updateImageTransform() {
-            // Constrain translation when zoomed
-            if (currentZoom > 1) {
-                const containerRect = imageContainer.getBoundingClientRect();
-                const imageRect = mainImage.getBoundingClientRect();
-                
-                const maxTranslateX = Math.max(0, (imageRect.width * currentZoom - containerRect.width) / 2);
-                const maxTranslateY = Math.max(0, (imageRect.height * currentZoom - containerRect.height) / 2);
-                
-                translateX = Math.max(-maxTranslateX, Math.min(maxTranslateX, translateX));
-                translateY = Math.max(-maxTranslateY, Math.min(maxTranslateY, translateY));
-            } else {
-                translateX = 0;
-                translateY = 0;
-            }
-            
-            mainImage.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
+        function updateImageZoom() {
+            mainImage.style.transform = `scale(${currentZoom})`;
             
             // Update button states
             zoomInBtn.disabled = currentZoom >= maxZoom;
             zoomOutBtn.disabled = currentZoom <= minZoom;
             
-            // Visual feedback for disabled buttons
-            zoomInBtn.style.opacity = currentZoom >= maxZoom ? '0.5' : '1';
-            zoomOutBtn.style.opacity = currentZoom <= minZoom ? '0.5' : '1';
+            // Add visual feedback for disabled buttons
+            if (currentZoom >= maxZoom) {
+                zoomInBtn.style.opacity = '0.5';
+            } else {
+                zoomInBtn.style.opacity = '1';
+            }
             
-            // Enable/disable panning based on zoom
-            imageContainer.style.cursor = currentZoom > 1 ? 'grab' : 'default';
+            if (currentZoom <= minZoom) {
+                zoomOutBtn.style.opacity = '0.5';
+            } else {
+                zoomOutBtn.style.opacity = '1';
+            }
         }
 
-        // DESKTOP: Mouse drag functionality
+        // Mouse wheel zoom
+        const imageContainer = document.querySelector('.main-image-container');
         if (imageContainer) {
-            imageContainer.addEventListener('mousedown', (e) => {
-                if (currentZoom > 1) {
-                    isPanning = true;
-                    startX = e.clientX - translateX;
-                    startY = e.clientY - translateY;
-                    imageContainer.style.cursor = 'grabbing';
-                    e.preventDefault();
-                }
-            });
-
-            document.addEventListener('mousemove', (e) => {
-                if (isPanning && currentZoom > 1) {
-                    translateX = e.clientX - startX;
-                    translateY = e.clientY - startY;
-                    updateImageTransform();
-                }
-            });
-
-            document.addEventListener('mouseup', () => {
-                if (isPanning) {
-                    isPanning = false;
-                    lastTranslateX = translateX;
-                    lastTranslateY = translateY;
-                    imageContainer.style.cursor = currentZoom > 1 ? 'grab' : 'default';
+            imageContainer.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                
+                if (e.deltaY < 0 && currentZoom < maxZoom) {
+                    // Zoom in
+                    currentZoom += zoomStep;
+                    updateImageZoom();
+                } else if (e.deltaY > 0 && currentZoom > minZoom) {
+                    // Zoom out
+                    currentZoom -= zoomStep;
+                    updateImageZoom();
                 }
             });
         }
 
-        // MOBILE: Touch/pinch zoom and pan
+        // Touch/pinch zoom for mobile
         let initialDistance = 0;
         let initialZoom = 1;
-        let touches = [];
 
         imageContainer.addEventListener('touchstart', (e) => {
-            touches = Array.from(e.touches);
-            
-            if (touches.length === 2) {
-                // Two finger pinch zoom
-                initialDistance = getDistance(touches[0], touches[1]);
+            if (e.touches.length === 2) {
+                initialDistance = getDistance(e.touches[0], e.touches[1]);
                 initialZoom = currentZoom;
-                e.preventDefault();
-            } else if (touches.length === 1 && currentZoom > 1) {
-                // Single finger pan (only when zoomed)
-                isPanning = true;
-                startX = touches[0].clientX - translateX;
-                startY = touches[0].clientY - translateY;
-                e.preventDefault();
             }
         });
 
         imageContainer.addEventListener('touchmove', (e) => {
-            touches = Array.from(e.touches);
-            
-            if (touches.length === 2) {
-                // Pinch zoom
+            if (e.touches.length === 2) {
                 e.preventDefault();
-                const currentDistance = getDistance(touches[0], touches[1]);
+                const currentDistance = getDistance(e.touches[0], e.touches[1]);
                 const scale = currentDistance / initialDistance;
                 const newZoom = Math.max(minZoom, Math.min(maxZoom, initialZoom * scale));
                 
                 currentZoom = newZoom;
-                updateImageTransform();
-            } else if (touches.length === 1 && isPanning && currentZoom > 1) {
-                // Pan
-                e.preventDefault();
-                translateX = touches[0].clientX - startX;
-                translateY = touches[0].clientY - startY;
-                updateImageTransform();
-            }
-        });
-
-        imageContainer.addEventListener('touchend', (e) => {
-            if (isPanning) {
-                isPanning = false;
-                lastTranslateX = translateX;
-                lastTranslateY = translateY;
-            }
-            
-            // Reset if no touches
-            if (e.touches.length === 0) {
-                touches = [];
+                updateImageZoom();
             }
         });
 
@@ -166,22 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const dy = touch1.clientY - touch2.clientY;
             return Math.sqrt(dx * dx + dy * dy);
         }
-
-        // Prevent context menu on long press (mobile)
-        imageContainer.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        // Prevent default drag behavior
-        mainImage.addEventListener('dragstart', (e) => {
-            e.preventDefault();
-        });
     }
 
     // Fragment image interactions
     const fragmentItems = document.querySelectorAll('.fragment-item');
     fragmentItems.forEach(fragment => {
         fragment.addEventListener('click', () => {
+            // Create lightbox for fragment
             createFragmentLightbox(fragment.querySelector('img'));
         });
     });
@@ -280,27 +203,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Video controls enhancement
     const video = document.querySelector('.video-container video');
     if (video) {
+        // Add custom video controls or enhancements here
         video.addEventListener('loadedmetadata', () => {
             console.log('Video loaded successfully');
         });
         
         video.addEventListener('error', () => {
             console.log('Video failed to load');
+            // Could add fallback or error message here
         });
     }
 
     // Keyboard navigation for artwork pages
     document.addEventListener('keydown', (e) => {
-        // Only if not focused on input elements
-        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-            const prevLink = document.querySelector('.nav-artwork.prev');
-            const nextLink = document.querySelector('.nav-artwork.next');
-            
-            if (e.key === 'ArrowLeft' && prevLink) {
-                window.location.href = prevLink.href;
-            } else if (e.key === 'ArrowRight' && nextLink) {
-                window.location.href = nextLink.href;
-            }
+        const prevLink = document.querySelector('.nav-artwork.prev');
+        const nextLink = document.querySelector('.nav-artwork.next');
+        
+        if (e.key === 'ArrowLeft' && prevLink) {
+            window.location.href = prevLink.href;
+        } else if (e.key === 'ArrowRight' && nextLink) {
+            window.location.href = nextLink.href;
         }
     });
 

@@ -417,7 +417,7 @@ h3 {
 }
 
 .back-nav {
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
 }
 
 .back-link {
@@ -457,83 +457,42 @@ h3 {
     justify-content: center;
     align-items: center;
     min-height: 400px;
-    /* ZOOM/PAN: Added for pan functionality */
-    cursor: default;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
-
-/* ZOOM/PAN: Added cursor states for pan functionality */
-.main-image-container.pannable {
-    cursor: grab;
-}
-
-.main-image-container.panning {
-    cursor: grabbing;
 }
 
 .main-image-container img {
     max-width: 100%;
     height: auto;
     display: block;
-    /* ZOOM/PAN: Changed transition timing for smoother pan */
-    transition: transform 0.2s ease;
+    transition: transform 0.3s ease;
     transform-origin: center;
     object-fit: contain;
-    /* ZOOM/PAN: Prevent image dragging and selection */
-    pointer-events: none;
-    -webkit-user-drag: none;
-    -khtml-user-drag: none;
-    -moz-user-drag: none;
-    -o-user-drag: none;
-    user-drag: none;
 }
 
-/* ZOOM/PAN: Enhanced zoom controls positioning and styling */
+
+
 .zoom-controls {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 0px;
     display: flex;
-    gap: 8px;
-    z-index: 10;
+    gap: 10px;
 }
 
-/* ZOOM/PAN: Enhanced zoom button styling */
 .zoom-btn {
-    background: rgba(120, 119, 116, 0.7);
     color: white;
     border: none;
-    width: 40px;
-    height: 40px;
+    
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.7rem;
     font-weight: bold;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    color: rgba(0,0,0,0.7);
+    transition: var(--transition);
 }
 
-/* ZOOM/PAN: Enhanced hover and disabled states */
-.zoom-btn:hover:not(:disabled) {
+.zoom-btn:hover {
     background: var(--accent-color);
-    transform: scale(1.1);
-}
-
-.zoom-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.zoom-btn:active:not(:disabled) {
-    transform: scale(0.95);
 }
 
 .artwork-info {
@@ -651,8 +610,7 @@ h3 {
 .artwork-navigation {
     display: flex;
     justify-content: space-between;
-    margin-top: 2rem;
-    margin-bottom: 0.5rem;
+    margin-top: 3rem;
 }
 
 .nav-artwork {
@@ -862,6 +820,10 @@ h3 {
     font-size: 0.8rem;
     }
 
+
+
+
+
     .mosaic-view {
         columns: 1;
     }
@@ -880,24 +842,6 @@ h3 {
     
     .artwork-info h1 {
         font-size: 2rem;
-    }
-    
-    /* ZOOM/PAN: Mobile zoom controls adjustments */
-    .zoom-controls {
-        top: 10px;
-        right: 10px;
-        gap: 6px;
-    }
-    
-    .zoom-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 0.9rem;
-    }
-    
-    .main-image-container {
-        padding: 15px;
-        min-height: 300px;
     }
 }
 
@@ -968,7 +912,12 @@ html {
     object-fit: contain;    /* letterbox if ratio differs */
 }
 
+
+
+
+
 /* Footer Styles */
+
 
 .site-footer {
     background: linear-gradient(135deg, #2C2C2C 0%, #1a1a1a 100%);
@@ -980,6 +929,7 @@ html {
     font-size: 0.8rem;
     color: #d0d0d0;
 }
+
 
 .site-footer::before {
     content: "";
