@@ -386,7 +386,11 @@ h3 {
 
 .standard-overlay h3 {
     font-size: 1.5rem;
+<<<<<<< HEAD
     color: white;
+=======
+    color=white;
+>>>>>>> 70aaf811bb8f62071307954816d7690db35ecd7f
 }
 
 /* Artwork Page Styles */
