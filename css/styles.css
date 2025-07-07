@@ -6,15 +6,15 @@
 }
 
 :root {
-    --primary-color: #4a4a49; /*#2C2C2C;*/
+    --primary-color: #4a4a49;
     --secondary-color: #F8F6F0;
     --accent-color: #D4AF37;
-    --frame-color: #4f3518; /*  #8B4513; #666;  ;*/
+    --frame-color: #4f3518;
     --text-light: #666;
     --transition: all 0.3s ease;
     --shadow: 0 10px 30px rgba(0,0,0,0.1);
     --shadow-hover: 0 20px 40px rgba(0,0,0,0.2);
-    --gallery-background: #b3b2af /* i added*/
+    --gallery-background: #b3b2af
 }
 
 body {
@@ -39,7 +39,7 @@ h1 {
 h2 {
     font-family: 'Playfair Display', sans-serif;
     font-weight: 700;
-    font-color:  #D4AF37; /*#424242;*/
+    color:  #D4AF37; /*#424242;*/
 }
 
 
@@ -48,7 +48,7 @@ h3 {
     font-size: 1.0rem;
     /*font-style: italic;*/
     font-weight: 400;
-    font-color: #424242;
+    color: #424242;
 }
 
 .section-title {
@@ -140,9 +140,7 @@ h3 {
     background: var(--primary-color);
     margin: 3px 0;
     transition: var(--transition);
-}
-
-/* Hero Section */
+}/* Hero Section */
 .hero {
     min-height: 30vh;
     display: flex;
@@ -151,9 +149,7 @@ h3 {
     padding-top: 90px;
     text-align: center;
     position: relative;
-    /* Background image properties - will be applied when image is added */
-    background-image: ("images/hero-background.jpg"); /* url("images/hero-background.jpg"); */
-    background: linear-gradient(135deg, var(--secondary-color) 0%, #f0ede5 100%);
+    background-image: url("images/hero-background.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -793,7 +789,7 @@ h3 {
     }
 
 .gallery-section {
-    padding: 0,1rem 0;
+    padding: 0.5rem 0;
     line-height: 1;
 }
     .view-toggle {
