@@ -168,7 +168,7 @@ h3 {
     z-index: 1;
 }
 
-/* Ensure hero content appears above overlay */
+/* Ensure hero content appears above overlay - 8*/
 .hero-content {
     position: relative;
     z-index: 2;
