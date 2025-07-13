@@ -9,7 +9,7 @@
     --primary-color: #4a4a49;
     --secondary-color: #F8F6F0;
     --accent-color: #D4AF37;
-    --frame-color: #4f3518;
+    --frame-color: #4a4a49; /*#4f3518;*/
     --text-light: #666;
     --transition: all 0.3s ease;
     --shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -32,12 +32,12 @@ body {
 
 /* Typography */
 h1 {
-    font-family: "Edwardian Script ITC", cursive;
-    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
 }
 
 h2 {
-    font-family: 'Playfair Display', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 700;
     color:  #bf9011; /*#D4AF37;*/
 }
@@ -88,9 +88,9 @@ h3 {
 }
 
 .nav-logo h1 {
-    font-size: 2.7rem;
+    font-size: 1.8rem;
     color: #bf9011;
-    font-family: "Edwardian Script ITC", cursive;
+    font-family: 'Inter', sans-serif;
 }
 
 .nav-menu {
@@ -178,6 +178,7 @@ h3 {
 
 .hero-content h2 {
     font-size: 2rem;
+    font-style: bold;
     margin-bottom: 0.5rem;
     line-height: 1.0;
     max-width: 800px;
@@ -185,9 +186,10 @@ h3 {
 
 .hero-content p {
     font-size: 1.2rem;
+    font-style: bold;
     color: var(--text-light);
     line-height: 1.2;
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -215,12 +217,13 @@ h3 {
     background: transparent;
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
-    padding: 12px 24px;
-    border-radius: 25px;
+    padding: 6px 9px;
+    border-radius: 15px;
     cursor: pointer;
     transition: var(--transition);
+    font-family: 'Inter', sans-serif;
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 
 .view-toggle:hover,
@@ -910,11 +913,13 @@ h3 {
     
     .hero-content h2 {
         font-size: 1.3rem;
+       
     }
     
     .hero-content p {
-        font-size: 0.8rem;
+        font-size: 1.0rem;
     }
+
     .gallery-header {
     margin-bottom: 0.3rem;
     padding: 0px 0px;
@@ -930,12 +935,13 @@ h3 {
     line-height: 1;
 }
     .view-toggle {
-    padding: 6px 12px;
+    padding: 4px 8px;
     border-radius: 25px;
     cursor: pointer;
     transition: var(--transition);
     font-weight: 500;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
+    margin-bottom: 0.3rem;
     }
 
     .mosaic-view {
@@ -1282,7 +1288,7 @@ html {
     }
     /* Gallery section header adjustments */
     .gallery-section .section-title {
-        font-size: 1.0rem;
+        font-size: 0.8rem;
     }
     
     .artwork-overlay h3 {
@@ -1325,7 +1331,7 @@ html {
 
    .fragments-section h3 {
     font-size: 1.2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     }
    .video-section h3 {
     font-size: 1.2rem;
